@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_height="wrap_content"
+	android:layout_width="fill_parent"
+	android:orientation="vertical"
+	android:id="@+id/layoutBeerChangeDialog">
+		
+    <TextView android:id="@+id/text"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="Looks like this tap kicked! If you know what is coming up next, enter it here." />
+              
+    <Spinner android:id="@+id/spnBreweries"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
+        
+    <Spinner android:id="@+id/spnBeers"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
+	<LinearLayout android:layout_height="wrap_content" android:layout_width="fill_parent"
+		android:orientation="horizontal">
+		<Button android:id="@+id/btnCancel" 
+			android:layout_width="wrap_content" android:layout_height="wrap_content"
+			android:layout_alignParentLeft="true" android:text="Cancel" />
+			
+		<Button android:id="@+id/btnOK" android:layout_alignParentRight="true"
+			android:layout_width="wrap_content" android:layout_height="wrap_content"
+			android:layout_centerHorizontal="true" android:text="OK" />
+	</LinearLayout>
+</LinearLayout>
