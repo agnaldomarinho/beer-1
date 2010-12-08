@@ -1,0 +1,83 @@
+[
+    {
+        "model": "api.Location",
+        "pk": 2,
+        "fields": {
+            "lon": -75.159,
+            "lat": 39.961
+        }
+    },
+    {
+        "model": "api.Location",
+        "pk": 3,
+        "fields": {
+            "lon": -75.157,
+            "lat": 39.963
+        }
+    },
+
+    {
+        "model": "api.Brewery",
+        "pk": 1,
+        "fields":{
+            "name": "Dock Street Brewery",
+            "location": 1
+        }
+    },
+
+    {
+        "model": "api.Brewery",
+        "pk": 2,
+        "fields":{
+            "name": "Victory Brewing Company",
+            "location": 2
+        }
+    },
+
+    {
+        "model": "api.Beer",
+        "pk": 1,
+        "fields": {
+            "maker": 1,
+            "name": "Bubbly Wit"
+        }
+    },
+
+    {
+        "model": "api.Beer",
+        "pk": 2,
+        "fields": {
+            "maker": 2,
+            "name": "Golden Monkey"
+        }
+    },
+
+    {
+        "model": "api.Beer",
+        "pk": 3,
+        "fields": {
+            "maker": 2,
+            "name": "Prima Pils"
+        }
+    },
+
+    {
+        "model": "api.Bar",
+        "pk": 1,
+        "fields": {
+            "name": "Prohibition Taproom",
+            "location": 2,
+            "taps": [1]
+        }
+    },
+
+    {
+        "model": "api.Bar",
+        "pk": 2,
+        "fields": {
+            "name": "The Institute",
+            "location": 3,
+            "taps": []
+        }
+    }
+]
