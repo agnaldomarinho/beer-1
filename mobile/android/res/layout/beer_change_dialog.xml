@@ -14,9 +14,22 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" />
         
+    <EditText android:id="@+id/edtBreweryName"
+    	android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:hint="New Brewery Name"
+    	android:visibility="gone" />
+        
     <Spinner android:id="@+id/spnBeers"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" />
+
+    <EditText android:id="@+id/edtBeerName"
+    	android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:hint="New Beer Name"
+    	android:visibility="gone" />
+
 	<LinearLayout android:layout_height="wrap_content" android:layout_width="fill_parent"
 		android:orientation="horizontal">
 		<Button android:id="@+id/btnCancel" 

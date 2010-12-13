@@ -15,10 +15,10 @@ import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.AdapterView.OnItemSelectedListener;
 
 public class BeerList extends ListActivity {
@@ -57,16 +57,18 @@ public class BeerList extends ListActivity {
 					JSONObject breweriesObj = Util.GetJson("/breweries/");
 					try {
 						final JSONArray breweriesArray = breweriesObj.getJSONArray("breweries");
-						String[] breweryNames = new String[breweriesArray.length()];
-						int[] breweryIds = new int[breweriesArray.length()];
+						String[] breweryNames = new String[breweriesArray.length() + 1];
+						final int[] breweryIds = new int[breweriesArray.length() + 1];
 						JSONObject breweryObj;
 						for (int i = 0; i < breweriesArray.length(); i++) {
 							breweryObj = breweriesArray.getJSONObject(i);
 							breweryNames[i] = breweryObj.getString("name");
 							breweryIds[i] = breweryObj.getInt("id");
 						}
+						breweryNames[breweriesArray.length()] = "Add new brewery...";
+						breweryIds[breweriesArray.length()] = -1;
 						
-						Spinner spnBreweries = (Spinner) dialog.findViewById(R.id.spnBreweries);
+						final Spinner spnBreweries = (Spinner) dialog.findViewById(R.id.spnBreweries);
 						ArrayAdapter<String> breweryAdapter =
 							new ArrayAdapter<String>(view.getContext(), android.R.layout.simple_spinner_item, breweryNames);
 						breweryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -75,27 +77,51 @@ public class BeerList extends ListActivity {
 							@Override
 							public void onItemSelected(AdapterView<?> arg0, View view, int index, long arg3) {
 								try {
-									JSONObject breweryObj = breweriesArray.getJSONObject(index);
-									JSONArray beersArray = breweryObj.getJSONArray("beers");
-									String[] beerNames = new String[beersArray.length()];
-									int[] beerIds = new int[beersArray.length()];
-									JSONObject beerObj;
-									for (int i = 0; i < beersArray.length(); i++) {
-										beerObj = beersArray.getJSONObject(i);
-										beerNames[i] = beerObj.getString("name");
-										beerIds[i] = beerObj.getInt("id");
+									EditText edtBreweryName = (EditText) dialog.findViewById(R.id.edtBreweryName);
+									Spinner spnBeers = (Spinner) dialog.findViewById(R.id.spnBeers);
+									String[] beerNames = new String[1];
+									int[] pBeerIds = new int[1];
+									if (breweryIds[index] == -1){
+										edtBreweryName.setVisibility(View.VISIBLE);
+									} else {
+										edtBreweryName.setVisibility(View.GONE);
+										JSONObject breweryObj = breweriesArray.getJSONObject(index);
+										JSONArray beersArray = breweryObj.getJSONArray("beers");
+										beerNames = new String[beersArray.length() + 1];
+										pBeerIds = new int[beersArray.length() + 1];
+										JSONObject beerObj;
+										for (int i = 0; i < beersArray.length(); i++) {
+											beerObj = beersArray.getJSONObject(i);
+											beerNames[i] = beerObj.getString("name");
+											pBeerIds[i] = beerObj.getInt("id");
+										}
 									}
 									
-									Spinner spnBeers = (Spinner) dialog.findViewById(R.id.spnBeers);
+									beerNames[beerNames.length - 1] = "Add new beer...";
+									pBeerIds[beerNames.length - 1] = -1;
+									
+									final int[] beerIds = pBeerIds;
+										
 									ArrayAdapter<String> beerAdapter =
 										new ArrayAdapter<String>(view.getContext(), android.R.layout.simple_spinner_item, beerNames);
 									beerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 									spnBeers.setAdapter(beerAdapter);
+									spnBeers.setOnItemSelectedListener(new OnItemSelectedListener() {
+										@Override
+										public void onItemSelected(AdapterView<?> arg0, View view, int beerIndex, long arg3) {
+											EditText edtBeerName = (EditText) dialog.findViewById(R.id.edtBeerName);
+											if (beerIds[beerIndex] == -1){
+												edtBeerName.setVisibility(View.VISIBLE);
+											} else {
+												edtBeerName.setVisibility(View.GONE);
+											}
+										}
+
+										@Override
+										public void onNothingSelected(AdapterView<?> arg0) { }
+									});
+								} catch (JSONException ex) {
 								}
-								catch (JSONException ex) {
-									
-								}
-							      
 							}
 
 							@Override
@@ -130,14 +156,7 @@ public class BeerList extends ListActivity {
     	catch (JSONException ex) {
     	}
     }
-	/*public class MyOnItemSelectedListener implements OnItemSelectedListener {
-		public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-	      Toast.makeText(parent.getContext(), "The brewery is " +
-	          parent.getItemAtPosition(pos).toString(), Toast.LENGTH_LONG).show();
-	    }
 
-	    public void onNothingSelected(AdapterView<?> parent) { }
-	}*/    
     private class BeerListAdapter extends ArrayAdapter<BeerListItem> {
     	private BeerListItem[] items;
     	
