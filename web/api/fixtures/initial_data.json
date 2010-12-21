@@ -62,12 +62,20 @@
     },
 
     {
+	"model": "api.Beer",
+	"pk": 4,
+	"fields": {
+	    "maker": 3,
+	    "name": "Unknown"
+	}
+    },
+
+    {
         "model": "api.Bar",
         "pk": 1,
         "fields": {
             "name": "Prohibition Taproom",
-            "location": 2,
-            "taps": [1]
+            "location": 2
         }
     },
 
@@ -76,8 +84,27 @@
         "pk": 2,
         "fields": {
             "name": "The Institute",
-            "location": 3,
-            "taps": []
+            "location": 3
         }
+    },
+
+    {
+	"model": "api.Tap",
+	"pk": 1,
+	"fields": {
+	    "bar": 1,
+	    "beer": 1,
+	    "position": 0
+	}
+    },
+ 
+    {
+	"model": "api.Tap",
+	"pk": 2,
+	"fields": {
+	    "bar": 1,
+	    "beer": 2,
+	    "position": 1
+	}
     }
 ]

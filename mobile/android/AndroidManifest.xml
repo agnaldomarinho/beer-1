@@ -14,6 +14,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".BarList" />
-        <activity android:name=".BeerList" />
+        <activity android:name=".BeerList" android:configChanges="orientation|keyboard|keyboardHidden" />
+        <activity android:name=".BeerChange" android:theme="@android:style/Theme.Dialog" />
     </application>
 </manifest> 

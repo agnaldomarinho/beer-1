@@ -2,7 +2,7 @@ from models import Bar
 import json
 
 from django.http import HttpResponse
-from api.models import Beer, Brewery
+from api.models import Beer, Brewery, Tap
 from bdb import bar
 
 def bars_near(request, lat, lon):
@@ -24,9 +24,24 @@ def find_closest(type, center, max):
     all = type.objects.all()
     return all
 
-def taps(request, bar):
-    beers = Beer.objects.all(taps == bar)
-    return (json.dumps(beers))
+def bar(request, bar):
+    taps = Tap.objects.all()
+    ret_obj = {
+        "bar": {
+            "id": bar, 
+            "taps": [
+            {
+                "id": tap.id, 
+                "position": tap.position, 
+                "beer": {
+                    "id": tap.beer.id, 
+                    "brewery": {"name": tap.beer.maker.name, "id": tap.beer.maker.id}, 
+                    "name": tap.beer.name
+                }
+            } for tap in taps]
+        }
+    }
+    return HttpResponse(json.dumps(ret_obj))
 
 def all_beers(request):
     beers = Beer.objects.all()
@@ -42,3 +57,33 @@ def all_breweries(request):
             "beers": [{"name": beer.name, "id": beer.id} for beer in brewery.beer_set.all()]
         } for brewery in breweries]}
     return HttpResponse(json.dumps(ret_obj))
+
+def change_beer(request):
+    json_string = request.REQUEST["json"]
+    data = json.loads(json_string)
+    tapId = data["tap"]
+
+    print "tapId: %d" % tapId
+
+    # try to grab the brewery id.  if there is none, create the brewery
+    if "breweryId" not in data:
+        brewery = Brewery.create(name = data["breweryName"])
+        print "created brewery " + brewery
+
+    print 'after brewery'
+
+    if "beerId" in data:
+        beer = Beer.objects.get(id = data["beerId"])
+    else:
+        beer = Beer(name = data["beerName"])
+        beer.save()
+
+    print 'after creating'
+
+    tap = Tap.objects.get(id = tapId)
+    tap.beer = beer
+    tap.save()
+
+    print 'beer set'
+
+    return HttpResponse("response")

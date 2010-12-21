@@ -14,5 +14,10 @@ class Beer(models.Model):
 
 class Bar(models.Model):
     name = models.CharField(max_length=200)
-    taps = models.ManyToManyField(Beer)
+    taps = models.ManyToManyField(Beer, through="Tap")
     location = models.ForeignKey(Location)
+
+class Tap(models.Model):
+    bar = models.ForeignKey(Bar)
+    beer = models.ForeignKey(Beer)
+    position = models.IntegerField()

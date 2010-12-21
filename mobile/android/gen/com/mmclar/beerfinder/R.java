@@ -33,7 +33,7 @@ public final class R {
         public static final int bars_item=0x7f030000;
         public static final int base_actions=0x7f030001;
         public static final int base_actions_item=0x7f030002;
-        public static final int beer_change_dialog=0x7f030003;
+        public static final int beer_change=0x7f030003;
         public static final int beers_item=0x7f030004;
         public static final int main=0x7f030005;
     }

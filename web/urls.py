@@ -10,7 +10,8 @@ urlpatterns = patterns('',
         'show_indexes': True
     }),
     (r'bars/\((?P<lat>\d+(\.\d+)),(?P<lon>\d+(\.\d+))\)/', 'api.views.bars_near'),
-    (r'bar/(?P<bar>\d+)', 'api.views.taps'),
+    (r'bar/(?P<bar>\d+)', 'api.views.bar'),
     (r'beers/', 'api.views.all_beers'),
-    (r'breweries/', 'api.views.all_breweries')
+    (r'breweries/', 'api.views.all_breweries'),
+    (r'changeBeer/', 'api.views.change_beer')
 )

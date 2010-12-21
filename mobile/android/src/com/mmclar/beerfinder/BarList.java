@@ -28,13 +28,14 @@ public class BarList extends ListActivity {
     }
     
     public void setupList() {
-    	JSONObject barsObj = Util.GetJson("bars/(1.1,2.2)/");
+    	JSONObject barsObj = Util.GetJson("/bars/(1.1,2.2)/");
     	try {
 	    	final JSONArray barArray = (JSONArray) barsObj.get("bars");
 	    	
-	    	BarListItem[] barListItems = new BarListItem[barArray.length()];
+	    	final BarListItem[] barListItems = new BarListItem[barArray.length()];
 	    	for (int i = 0; i < barArray.length(); i++) {
 	    		barListItems[i] = new BarListItem();
+	    		barListItems[i].Id = barArray.getJSONObject(i).getInt("id");
 	    		barListItems[i].Name = barArray.getJSONObject(i).getString("name");
 	    		barListItems[i].TapCount = barArray.getJSONObject(i).getJSONArray("taps").length();
 	    	}
@@ -47,12 +48,7 @@ public class BarList extends ListActivity {
 	    	lv.setOnItemClickListener(new OnItemClickListener() {
 	    		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 	    			Intent i = new Intent(view.getContext(), BeerList.class);
-	    			try{
-	    				String s = barArray.getJSONObject(position).toString();
-	    				i.putExtra("barData", s);
-	    			}
-	    			catch (JSONException ex){
-	    			}
+    				i.putExtra("barId", barListItems[position].Id);
 	    			startActivity(i);
 	    		}
 	    	});
@@ -82,7 +78,8 @@ public class BarList extends ListActivity {
                       TextView tvName = (TextView) v.findViewById(R.id.tvName);
                       TextView tvTapCount = (TextView) v.findViewById(R.id.tvTapCount);
                       if (tvName != null) {
-                            tvName.setText(bli.Name);                            }
+                            tvName.setText(bli.Name);
+                      }
                       if(tvTapCount != null) {
                             tvTapCount.setText(Integer.toString(bli.TapCount) + (bli.TapCount == 1 ? " Tap" : " Taps"));
                       }
