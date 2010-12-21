@@ -2,7 +2,7 @@ from models import Bar
 import json
 
 from django.http import HttpResponse
-from api.models import Beer, Brewery, Tap
+from api.models import Beer, Brewery, Tap, Location
 from bdb import bar
 
 def bars_near(request, lat, lon):
@@ -63,27 +63,23 @@ def change_beer(request):
     data = json.loads(json_string)
     tapId = data["tap"]
 
-    print "tapId: %d" % tapId
-
     # try to grab the brewery id.  if there is none, create the brewery
-    if "breweryId" not in data:
-        brewery = Brewery.create(name = data["breweryName"])
-        print "created brewery " + brewery
-
-    print 'after brewery'
+    if "breweryId" in data:
+        brewery = Brewery.objects.get(id = data["breweryId"])
+    else:
+        location = Location(lon = 0, lat = 0)
+        location.save()
+        brewery = Brewery(name = data["breweryName"], location = location)
+        brewery.save()
 
     if "beerId" in data:
         beer = Beer.objects.get(id = data["beerId"])
     else:
-        beer = Beer(name = data["beerName"])
+        beer = Beer(name = data["beerName"], maker = brewery)
         beer.save()
-
-    print 'after creating'
 
     tap = Tap.objects.get(id = tapId)
     tap.beer = beer
     tap.save()
-
-    print 'beer set'
 
     return HttpResponse("response")
