@@ -175,8 +175,9 @@ public class BeerList extends ListActivity {
 												}
 
 												Util.PostJson("/changeBeer/", beerChangeObject);
-												
-												act.startActivity(act.getIntent());
+
+												setupList();
+												dialog.dismiss();
 											} catch (JSONException ex) {
 											}
 										}
