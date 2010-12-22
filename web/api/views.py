@@ -61,7 +61,7 @@ def all_breweries(request):
 def change_beer(request):
     json_string = request.REQUEST["json"]
     data = json.loads(json_string)
-    tapId = data["tap"]
+    tap_id = data["tap"]
 
     # try to grab the brewery id.  if there is none, create the brewery
     if "breweryId" in data:
@@ -78,8 +78,18 @@ def change_beer(request):
         beer = Beer(name = data["beerName"], maker = brewery)
         beer.save()
 
-    tap = Tap.objects.get(id = tapId)
+    tap = Tap.objects.get(id = tap_id)
     tap.beer = beer
     tap.save()
 
-    return HttpResponse("response")
+    return HttpResponse("success")
+
+def add_bar(request):
+    json_string = request.REQUEST["json"]
+    data = json.loads(json_string)
+    bar_name = data["barName"]
+    location = Location(lon = 0, lat = 0)
+    location.save()
+    b = Bar(name = bar_name, location = location)
+    b.save()
+    return HttpResponse(json.dumps({"bar": {"name": b.name, "id": b.id}}))

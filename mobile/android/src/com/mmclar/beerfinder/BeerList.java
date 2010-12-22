@@ -4,7 +4,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.app.ListActivity;
 import android.content.Context;
@@ -31,9 +30,6 @@ public class BeerList extends ListActivity {
 	}
 
 	public void setupList() {
-		
-		final Activity act = this;
-		
 		try {
 			int barId = (Integer) getIntent().getExtras().get("barId");
 			JSONObject barObj = Util.GetJson("/bar/" + barId).getJSONObject(

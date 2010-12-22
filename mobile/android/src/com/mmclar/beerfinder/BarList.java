@@ -1,14 +1,20 @@
 package com.mmclar.beerfinder;
 
+import android.app.Dialog;
 import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -57,6 +63,52 @@ public class BarList extends ListActivity {
 		}
     }
     
+    @Override
+    public boolean onCreateOptionsMenu(android.view.Menu menu) {
+    	MenuInflater inflater = getMenuInflater();
+    	inflater.inflate(R.menu.bars_menu, menu);
+    	return true;
+    }
+    
+    @Override
+    public boolean onOptionsItemSelected(android.view.MenuItem item) {
+    	final Dialog dialog = new Dialog(this);
+    	dialog.setContentView(R.layout.add_bar);
+    	dialog.setTitle("Add Bar");
+    	dialog.getWindow().setLayout(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT);
+    	
+    	Button btnCancel = (Button) dialog.findViewById(R.id.btnCancel);
+		btnCancel.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				dialog.dismiss();
+			}
+		});
+
+		Button btnOK = (Button) dialog.findViewById(R.id.btnOK);
+		btnOK.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				final EditText edtBarName = (EditText) dialog.findViewById(R.id.edtBarName);
+				JSONObject addBarObject = new JSONObject();
+				
+				try {
+					addBarObject.put("barName", edtBarName.getText());
+				}
+				catch (JSONException ex) {
+				}
+				
+				Util.PostJson("/addBar/", addBarObject);
+				
+				setupList();
+				dialog.dismiss();
+			}
+		});
+    	
+    	dialog.show();
+    	return true;
+    };
+    
     private class BarListAdapter extends ArrayAdapter<BarListItem> {
     	private BarListItem[] items;
     	
@@ -67,24 +119,23 @@ public class BarList extends ListActivity {
     	
     	@Override
     	public View getView(int position, View convertView, ViewGroup parent) {
-    		  View v = convertView;
-              if (v == null) {
-                  LayoutInflater vi = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                  v = vi.inflate(R.layout.bars_item, null);
-              }
-
-              BarListItem bli = items[position];
-              if (bli != null) {
-                      TextView tvName = (TextView) v.findViewById(R.id.tvName);
-                      TextView tvTapCount = (TextView) v.findViewById(R.id.tvTapCount);
-                      if (tvName != null) {
-                            tvName.setText(bli.Name);
-                      }
-                      if(tvTapCount != null) {
-                            tvTapCount.setText(Integer.toString(bli.TapCount) + (bli.TapCount == 1 ? " Tap" : " Taps"));
-                      }
-              }
-              return v;
+    		View v = convertView;
+    		if (v == null) {
+    			LayoutInflater vi = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    			v = vi.inflate(R.layout.bars_item, null);
+    		}
+    		BarListItem bli = items[position];
+    		if (bli != null) {
+    			TextView tvName = (TextView) v.findViewById(R.id.tvName);
+    			TextView tvTapCount = (TextView) v.findViewById(R.id.tvTapCount);
+    			if (tvName != null) {
+    				tvName.setText(bli.Name);
+    			}
+    			if(tvTapCount != null) {
+					tvTapCount.setText(Integer.toString(bli.TapCount) + (bli.TapCount == 1 ? " Tap" : " Taps"));
+    			}
+			}
+    		return v;
     	}
     }
 }
