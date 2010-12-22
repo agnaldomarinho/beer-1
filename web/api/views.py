@@ -25,10 +25,10 @@ def find_closest(type, center, max):
     return all
 
 def bar(request, bar):
-    taps = Tap.objects.all()
+    bar = Bar.objects.get(id = bar)
     ret_obj = {
         "bar": {
-            "id": bar, 
+            "id": bar.id, 
             "taps": [
             {
                 "id": tap.id, 
@@ -38,7 +38,7 @@ def bar(request, bar):
                     "brewery": {"name": tap.beer.maker.name, "id": tap.beer.maker.id}, 
                     "name": tap.beer.name
                 }
-            } for tap in taps]
+            } for tap in Tap.objects.filter(bar = bar)]
         }
     }
     return HttpResponse(json.dumps(ret_obj))
