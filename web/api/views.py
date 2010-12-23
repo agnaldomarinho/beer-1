@@ -93,3 +93,17 @@ def add_bar(request):
     b = Bar(name = bar_name, location = location)
     b.save()
     return HttpResponse(json.dumps({"bar": {"name": b.name, "id": b.id}}))
+
+def add_beer(request, bar_id, position):
+    bar = Bar.objects.get(id = bar_id)
+    taps = Tap.objects.filter(bar = bar)
+    for tap in taps:
+        if tap.position >= position:
+            tap.location += 1
+            tap.save()
+
+    unknown = Beer.objects.get(id = 1)
+    tap = Tap(beer = unknown, bar = bar, position = position)
+    tap.save()
+
+    return HttpResponse(json.dumps({"status": "success"}))

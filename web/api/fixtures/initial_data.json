@@ -1,6 +1,15 @@
 [
     {
         "model": "api.Location",
+        "pk": 1,
+        "fields": {
+            "lon": 0,
+            "lat": 0
+        }
+    },
+ 
+    {
+        "model": "api.Location",
         "pk": 2,
         "fields": {
             "lon": -75.159,
@@ -20,7 +29,7 @@
         "model": "api.Brewery",
         "pk": 1,
         "fields":{
-            "name": "Dock Street Brewery",
+            "name": "Unknown Brewery",
             "location": 1
         }
     },
@@ -29,18 +38,27 @@
         "model": "api.Brewery",
         "pk": 2,
         "fields":{
-            "name": "Victory Brewing Company",
+            "name": "Dock Street Brewery",
             "location": 2
         }
     },
 
     {
-        "model": "api.Beer",
-        "pk": 1,
-        "fields": {
-            "maker": 1,
-            "name": "Bubbly Wit"
+        "model": "api.Brewery",
+        "pk": 3,
+        "fields":{
+            "name": "Victory Brewing Company",
+            "location": 3
         }
+    },
+
+    {
+	"model": "api.Beer",
+	"pk": 1,
+	"fields": {
+	    "maker": 1,
+	    "name": "Unknown Beer"
+	}
     },
 
     {
@@ -48,7 +66,7 @@
         "pk": 2,
         "fields": {
             "maker": 2,
-            "name": "Golden Monkey"
+            "name": "Bubbly Wit"
         }
     },
 
@@ -56,18 +74,18 @@
         "model": "api.Beer",
         "pk": 3,
         "fields": {
-            "maker": 2,
-            "name": "Prima Pils"
+            "maker": 3,
+            "name": "Golden Monkey"
         }
     },
 
     {
-	"model": "api.Beer",
-	"pk": 4,
-	"fields": {
-	    "maker": 3,
-	    "name": "Unknown"
-	}
+        "model": "api.Beer",
+        "pk": 4,
+        "fields": {
+            "maker": 3,
+            "name": "Prima Pils"
+        }
     },
 
     {
