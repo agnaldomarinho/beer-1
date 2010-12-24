@@ -175,10 +175,9 @@ public class BeerList extends ListActivity {
 													beerChangeObject.put("beerId", selectedBeerId);
 												}
 
-												Util.PostJson("/changeBeer/", beerChangeObject);
-
-												setupList();
 												dialog.dismiss();
+												Util.PostJson("/changeBeer/", beerChangeObject);
+												setupList();
 											} catch (JSONException ex) {
 											}
 										}
@@ -239,9 +238,9 @@ public class BeerList extends ListActivity {
 		btnOK.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				dialog.dismiss();
 				Util.GetJson("/addBeer/" + barId + "/" + (spnLocations.getSelectedItemPosition() + 1));
 				setupList();
-				dialog.dismiss();
 			}
 		});
     	

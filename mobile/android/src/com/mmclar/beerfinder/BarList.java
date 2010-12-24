@@ -97,11 +97,10 @@ public class BarList extends ListActivity {
 				}
 				catch (JSONException ex) {
 				}
-				
-				Util.PostJson("/addBar/", addBarObject);
-				
-				setupList();
+
 				dialog.dismiss();
+				Util.PostJson("/addBar/", addBarObject);
+				setupList();
 			}
 		});
     	

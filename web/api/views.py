@@ -38,7 +38,7 @@ def bar(request, bar):
                     "brewery": {"name": tap.beer.maker.name, "id": tap.beer.maker.id}, 
                     "name": tap.beer.name
                 }
-            } for tap in Tap.objects.filter(bar = bar)]
+            } for tap in Tap.objects.order_by('position').filter(bar = bar)]
         }
     }
     return HttpResponse(json.dumps(ret_obj))
@@ -95,12 +95,20 @@ def add_bar(request):
     return HttpResponse(json.dumps({"bar": {"name": b.name, "id": b.id}}))
 
 def add_beer(request, bar_id, position):
+    bar_id = int(bar_id)
+    position = int(position)
+    print 'position is %d' % position
     bar = Bar.objects.get(id = bar_id)
-    taps = Tap.objects.filter(bar = bar)
+    taps = Tap.objects.order_by('position').filter(bar = bar)
+    curr_position = 1
+    # iterate over all the taps in position order, and reassign their position
+    # when we see the position we want to add, leave a space for it
     for tap in taps:
-        if tap.position >= position:
-            tap.location += 1
-            tap.save()
+        if (curr_position == position):
+            curr_position += 1
+        tap.position = curr_position
+        tap.save()
+        curr_position += 1
 
     unknown = Beer.objects.get(id = 1)
     tap = Tap(beer = unknown, bar = bar, position = position)
