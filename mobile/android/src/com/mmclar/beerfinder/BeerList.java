@@ -38,7 +38,7 @@ public class BeerList extends ListActivity {
 	private void setupList() {
 		try {
 			barId = (Integer) getIntent().getExtras().get("barId");
-			JSONObject barObj = Util.GetJson("/bar/" + barId).getJSONObject("bar");
+			JSONObject barObj = new Data().GetBar(barId);
 			JSONArray beerArray = (JSONArray) barObj.get("taps");
 
 			taps = new Tap[beerArray.length()];
@@ -240,6 +240,7 @@ public class BeerList extends ListActivity {
 			public void onClick(View v) {
 				dialog.dismiss();
 				Util.GetJson("/addBeer/" + barId + "/" + (spnLocations.getSelectedItemPosition() + 1));
+				new Data().Reload();
 				setupList();
 			}
 		});

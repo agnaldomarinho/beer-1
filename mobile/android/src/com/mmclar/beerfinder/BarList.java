@@ -34,7 +34,7 @@ public class BarList extends ListActivity {
     }
     
     public void setupList() {
-    	JSONObject barsObj = Util.GetJson("/bars/(1.1,2.2)/");
+    	JSONObject barsObj = new Data().GetBars();
     	try {
 	    	final JSONArray barArray = (JSONArray) barsObj.get("bars");
 	    	

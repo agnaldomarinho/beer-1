@@ -13,7 +13,16 @@ def bars_near(request, lat, lon):
             'id': b.id,
             'name': b.name,
             'location': [b.location.lon, b.location.lat],
-            'taps': [{"id": beer.id, "name": beer.name, "brewery": beer.maker.name } for beer in b.taps.all()]
+            "taps": [
+            {
+                "id": tap.id, 
+                "position": tap.position, 
+                "beer": {
+                    "id": tap.beer.id, 
+                    "brewery": {"name": tap.beer.maker.name, "id": tap.beer.maker.id}, 
+                    "name": tap.beer.name
+                }
+            } for tap in Tap.objects.order_by('position').filter(bar = b)]
         })
 
     return HttpResponse(json.dumps(ret_obj))

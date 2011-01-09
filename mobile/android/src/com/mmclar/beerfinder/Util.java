@@ -43,8 +43,6 @@ public class Util {
 			connection.getInputStream();
 		}
     	catch (IOException ex) {
-    		String s = ex.getMessage();
-    		String t = s;
     	}
 	}
 }
