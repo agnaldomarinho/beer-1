@@ -8,6 +8,7 @@ import android.app.Dialog;
 import android.app.ListActivity;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.View;
@@ -199,6 +200,7 @@ public class BeerList extends ListActivity {
 				}
 			});
 		} catch (JSONException ex) {
+			Log.e("BeerList", ex.getMessage());
 		}
 	}
 

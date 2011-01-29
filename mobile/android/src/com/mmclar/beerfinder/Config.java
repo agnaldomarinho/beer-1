@@ -16,7 +16,7 @@ public class Config {
 		if (emulator) {
 			_urlBase = "http://10.0.2.2:8000";
 			try {
-				URLConnection connection = new URL(_urlBase + "/bars/").openConnection();
+				URLConnection connection = new URL(_urlBase + "/bars/(0.0,0.0)/").openConnection();
 				connection.setConnectTimeout(1000);
 				BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()), 1024 * 16);
 				StringBuffer builder = new StringBuffer();
