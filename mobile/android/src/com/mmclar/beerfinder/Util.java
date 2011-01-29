@@ -15,7 +15,7 @@ public class Util {
 	public static JSONObject GetJson(String path) {
 
     	try {
-			URLConnection connection = new URL(Config.URL_BASE + path).openConnection();
+			URLConnection connection = new URL(Config.getUrlBase() + path).openConnection();
 	    	BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()), 1024 * 16);
 	    	StringBuffer builder = new StringBuffer();
 	    	String line;
@@ -34,7 +34,7 @@ public class Util {
 	
 	public static void PostJson(String path, JSONObject json) {
 		try {
-			HttpURLConnection connection = (HttpURLConnection) new URL(Config.URL_BASE + path).openConnection();
+			HttpURLConnection connection = (HttpURLConnection) new URL(Config.getUrlBase() + path).openConnection();
 			connection.setDoOutput(true);
 			connection.setRequestMethod("POST");
 			OutputStreamWriter osw = new OutputStreamWriter(connection.getOutputStream());
