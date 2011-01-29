@@ -24,10 +24,10 @@ import android.widget.TextView;
 import android.widget.AdapterView.OnItemSelectedListener;
 
 public class BeerList extends ListActivity {
-	
+
 	private int barId;
-	private Tap[] taps; 
-	
+	private Tap[] taps;
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -65,7 +65,7 @@ public class BeerList extends ListActivity {
 					final Dialog dialog = new Dialog(view.getContext());
 					dialog.setContentView(R.layout.beer_change);
 					dialog.setTitle("Change Beer");
-	
+
 					JSONObject breweriesObj = Util.GetJson("/breweries/");
 					try {
 						final JSONArray breweriesArray = breweriesObj.getJSONArray("breweries");
@@ -84,12 +84,12 @@ public class BeerList extends ListActivity {
 						}
 						breweryNames[breweriesArray.length()] = "Add new brewery...";
 						breweryIds[breweriesArray.length()] = -1;
-	
+
 						final Spinner spnBreweries = (Spinner) dialog.findViewById(R.id.spnBreweries);
 						final EditText edtBreweryName = (EditText) dialog.findViewById(R.id.edtBreweryName);
 						final Spinner spnBeers = (Spinner) dialog.findViewById(R.id.spnBeers);
 						final EditText edtBeerName = (EditText) dialog.findViewById(R.id.edtBeerName);
-	
+
 						ArrayAdapter<String> breweryAdapter = new ArrayAdapter<String>(view.getContext(), android.R.layout.simple_spinner_item, breweryNames);
 						breweryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 						spnBreweries.setAdapter(breweryAdapter);
@@ -141,7 +141,8 @@ public class BeerList extends ListActivity {
 										}
 
 										@Override
-										public void onNothingSelected(AdapterView<?> arg0) { }
+										public void onNothingSelected(AdapterView<?> arg0) {
+										}
 									});
 
 									Button btnCancel = (Button) dialog.findViewById(R.id.btnCancel);
@@ -187,9 +188,10 @@ public class BeerList extends ListActivity {
 							}
 
 							@Override
-							public void onNothingSelected(AdapterView<?> arg0) { }
+							public void onNothingSelected(AdapterView<?> arg0) {
+							}
 						});
-	
+
 						dialog.show();
 					} catch (JSONException ex) {
 					}
@@ -199,23 +201,23 @@ public class BeerList extends ListActivity {
 		} catch (JSONException ex) {
 		}
 	}
-	
+
 	@Override
 	public boolean onCreateOptionsMenu(android.view.Menu menu) {
 		MenuInflater inflater = new MenuInflater(this);
 		inflater.inflate(R.menu.beers_menu, menu);
 		return true;
 	};
-	
+
 	@Override
 	public boolean onOptionsItemSelected(android.view.MenuItem item) {
 		final Dialog dialog = new Dialog(this);
-    	dialog.setContentView(R.layout.add_tap);
-    	dialog.setTitle("Add Tap");
-    	dialog.getWindow().setLayout(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT);
-    	
-		final Spinner spnLocations  = (Spinner) dialog.findViewById(R.id.spnLocations);
-		
+		dialog.setContentView(R.layout.add_tap);
+		dialog.setTitle("Add Tap");
+		dialog.getWindow().setLayout(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT);
+
+		final Spinner spnLocations = (Spinner) dialog.findViewById(R.id.spnLocations);
+
 		String[] slotDescriptions = new String[taps.length + 1];
 		for (int i = 0; i < taps.length; i++) {
 			slotDescriptions[i] = "(" + i + ")" + " " + taps[i].BeerName + " (" + taps[i].BreweryName + ")";
@@ -225,7 +227,7 @@ public class BeerList extends ListActivity {
 		locationsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		spnLocations.setAdapter(locationsAdapter);
 		spnLocations.setSelection(slotDescriptions.length - 1);
-		
+
 		Button btnCancel = (Button) dialog.findViewById(R.id.btnCancel);
 		btnCancel.setOnClickListener(new OnClickListener() {
 			@Override
@@ -244,10 +246,10 @@ public class BeerList extends ListActivity {
 				setupList();
 			}
 		});
-    	
+
 		dialog.show();
-		
-    	return true;
+
+		return true;
 	};
 
 	private class TapAdapter extends ArrayAdapter<Tap> {

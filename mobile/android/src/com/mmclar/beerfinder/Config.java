@@ -10,7 +10,7 @@ import android.os.Build;
 
 public class Config {
 	private static String _urlBase = null;
-	
+
 	static {
 		boolean emulator = "sdk".equals(Build.PRODUCT);
 		if (emulator) {
@@ -18,16 +18,15 @@ public class Config {
 			try {
 				URLConnection connection = new URL(_urlBase + "/bars/").openConnection();
 				connection.setConnectTimeout(1000);
-		    	BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()), 1024 * 16);
-		    	StringBuffer builder = new StringBuffer();
-		    	String line;
-		    	while ((line = reader.readLine()) != null) {
-		    		builder.append(line).append("\n");
-		    	}
-	    	}
-	    	catch (IOException ex) {
-	    		_urlBase = null;
-	    	}
+				BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()), 1024 * 16);
+				StringBuffer builder = new StringBuffer();
+				String line;
+				while ((line = reader.readLine()) != null) {
+					builder.append(line).append("\n");
+				}
+			} catch (IOException ex) {
+				_urlBase = null;
+			}
 		}
 
 		if (null == _urlBase) {

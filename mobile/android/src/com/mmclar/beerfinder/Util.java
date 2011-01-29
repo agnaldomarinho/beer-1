@@ -14,24 +14,22 @@ import org.json.JSONObject;
 public class Util {
 	public static JSONObject GetJson(String path) {
 
-    	try {
+		try {
 			URLConnection connection = new URL(Config.getUrlBase() + path).openConnection();
-	    	BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()), 1024 * 16);
-	    	StringBuffer builder = new StringBuffer();
-	    	String line;
-	    	while ((line = reader.readLine()) != null) {
-	    		builder.append(line).append("\n");
-	    	}
-	    	return new JSONObject(builder.toString());
-    	}
-    	catch (IOException ex) {
-    	}
-		catch (JSONException ex) {
+			BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()), 1024 * 16);
+			StringBuffer builder = new StringBuffer();
+			String line;
+			while ((line = reader.readLine()) != null) {
+				builder.append(line).append("\n");
+			}
+			return new JSONObject(builder.toString());
+		} catch (IOException ex) {
+		} catch (JSONException ex) {
 		}
-		
+
 		return null;
 	}
-	
+
 	public static void PostJson(String path, JSONObject json) {
 		try {
 			HttpURLConnection connection = (HttpURLConnection) new URL(Config.getUrlBase() + path).openConnection();
@@ -41,8 +39,7 @@ public class Util {
 			osw.write("json=" + json.toString());
 			osw.close();
 			connection.getInputStream();
+		} catch (IOException ex) {
 		}
-    	catch (IOException ex) {
-    	}
 	}
 }

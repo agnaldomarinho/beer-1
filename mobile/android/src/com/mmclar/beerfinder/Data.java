@@ -6,31 +6,31 @@ import org.json.JSONObject;
 
 public class Data {
 	private static JSONObject _data;
-	
-	public Data(){
-		if (_data == null){
+
+	public Data() {
+		if (_data == null) {
 			Reload();
 		}
 	}
-	
-	public void Reload(){
+
+	public void Reload() {
 		_data = Util.GetJson("/bars/(1.1,2.2)/");
 	}
-	
-	public JSONObject GetBars(){
+
+	public JSONObject GetBars() {
 		return _data;
 	}
-	
+
 	public JSONObject GetBar(int requestedId) {
-		try{
+		try {
 			JSONArray bars = _data.getJSONArray("bars");
-			for (int i = 0; i < bars.length(); i++){
+			for (int i = 0; i < bars.length(); i++) {
 				JSONObject bar = bars.getJSONObject(i);
 				if (bar.getInt("id") == requestedId) {
 					return bar;
 				}
 			}
-		} catch (JSONException ex){
+		} catch (JSONException ex) {
 		}
 		return null;
 	}
