@@ -124,3 +124,9 @@ def add_beer(request, bar_id, position):
     tap.save()
 
     return HttpResponse(json.dumps({"status": "success"}))
+
+def remove_tap(request, tap_id):
+    tap_id = int(tap_id)
+    tap = Tap.objects.get(id = tap_id)
+    tap.delete()
+    return HttpResponse(json.dumps({"status": "success"}))
