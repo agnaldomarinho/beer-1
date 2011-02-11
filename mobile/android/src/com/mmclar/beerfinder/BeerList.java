@@ -67,7 +67,7 @@ public class BeerList extends ListActivity {
 					dialog.setContentView(R.layout.beer_change);
 					dialog.setTitle("Change Beer");
 
-					JSONObject breweriesObj = Util.GetJson("/breweries/");
+					JSONObject breweriesObj = Util.getJson("/breweries/");
 					try {
 						final JSONArray breweriesArray = breweriesObj.getJSONArray("breweries");
 						String[] breweryNames = new String[breweriesArray.length() + 1];
@@ -178,10 +178,22 @@ public class BeerList extends ListActivity {
 												}
 
 												dialog.dismiss();
-												Util.PostJson("/changeBeer/", beerChangeObject);
+												Util.postJson("/changeBeer/", beerChangeObject);
+												new Data().reload();
 												setupList();
 											} catch (JSONException ex) {
 											}
+										}
+									});
+									
+									Button btnRemove = (Button) dialog.findViewById(R.id.btnRemove);
+									btnRemove.setOnClickListener(new OnClickListener() {
+										@Override
+										public void onClick(View v) {
+											dialog.dismiss();
+											Util.getJson("/removeTap/" + taps[selectedTapIndex].Id);
+											new Data().reload();
+											setupList();
 										}
 									});
 								} catch (JSONException ex) {
@@ -243,8 +255,8 @@ public class BeerList extends ListActivity {
 			@Override
 			public void onClick(View v) {
 				dialog.dismiss();
-				Util.GetJson("/addBeer/" + barId + "/" + (spnLocations.getSelectedItemPosition() + 1));
-				new Data().Reload();
+				Util.getJson("/addBeer/" + barId + "/" + (spnLocations.getSelectedItemPosition() + 1));
+				new Data().reload();
 				setupList();
 			}
 		});

@@ -38,6 +38,10 @@
 			
 		<Button android:id="@+id/btnOK" android:layout_alignParentRight="true"
 			android:layout_width="wrap_content" android:layout_height="wrap_content"
-			android:layout_centerHorizontal="true" android:text="OK" />
+			android:layout_centerHorizontal="true" android:text="  OK  " />
+			
+		<Button android:id="@+id/btnRemove" android:layout_alignParentRight="true"
+			android:layout_width="wrap_content" android:layout_height="wrap_content"
+			android:text="Remove" />
 	</LinearLayout>
 </LinearLayout>

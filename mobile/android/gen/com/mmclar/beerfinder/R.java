@@ -14,13 +14,14 @@ public final class R {
         public static final int icon=0x7f020000;
     }
     public static final class id {
-        public static final int addBar=0x7f060010;
-        public static final int addTap=0x7f060011;
-        public static final int btnBars=0x7f06000e;
-        public static final int btnBeers=0x7f06000d;
+        public static final int addBar=0x7f060011;
+        public static final int addTap=0x7f060012;
+        public static final int btnBars=0x7f06000f;
+        public static final int btnBeers=0x7f06000e;
         public static final int btnCancel=0x7f060002;
-        public static final int btnFavorites=0x7f06000f;
+        public static final int btnFavorites=0x7f060010;
         public static final int btnOK=0x7f060003;
+        public static final int btnRemove=0x7f06000c;
         public static final int edtBarName=0x7f060001;
         public static final int edtBeerName=0x7f06000b;
         public static final int edtBreweryName=0x7f060009;
@@ -29,7 +30,7 @@ public final class R {
         public static final int spnBreweries=0x7f060008;
         public static final int spnLocations=0x7f060004;
         public static final int text=0x7f060007;
-        public static final int tvBrewery=0x7f06000c;
+        public static final int tvBrewery=0x7f06000d;
         public static final int tvName=0x7f060005;
         public static final int tvTapCount=0x7f060006;
     }

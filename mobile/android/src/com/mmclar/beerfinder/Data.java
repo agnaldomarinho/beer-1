@@ -9,15 +9,15 @@ public class Data {
 
 	public Data() {
 		if (_data == null) {
-			Reload();
+			reload();
 		}
 	}
 
-	public void Reload() {
-		_data = Util.GetJson("/bars/(1.1,2.2)/");
+	public void reload() {
+		_data = Util.getJson("/bars/(1.1,2.2)/");
 	}
 
-	public JSONObject GetBars() {
+	public JSONObject getBars() {
 		return _data;
 	}
 

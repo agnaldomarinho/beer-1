@@ -12,7 +12,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class Util {
-	public static JSONObject GetJson(String path) {
+	public static JSONObject getJson(String path) {
 
 		try {
 			URLConnection connection = new URL(Config.getUrlBase() + path).openConnection();
@@ -30,7 +30,7 @@ public class Util {
 		return null;
 	}
 
-	public static void PostJson(String path, JSONObject json) {
+	public static void postJson(String path, JSONObject json) {
 		try {
 			HttpURLConnection connection = (HttpURLConnection) new URL(Config.getUrlBase() + path).openConnection();
 			connection.setDoOutput(true);

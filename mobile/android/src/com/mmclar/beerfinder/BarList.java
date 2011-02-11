@@ -34,7 +34,7 @@ public class BarList extends ListActivity {
 	}
 
 	public void setupList() {
-		JSONObject barsObj = new Data().GetBars();
+		JSONObject barsObj = new Data().getBars();
 		try {
 			final JSONArray barArray = (JSONArray) barsObj.get("bars");
 
@@ -97,7 +97,7 @@ public class BarList extends ListActivity {
 				}
 
 				dialog.dismiss();
-				Util.PostJson("/addBar/", addBarObject);
+				Util.postJson("/addBar/", addBarObject);
 				setupList();
 			}
 		});
