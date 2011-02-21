@@ -21,7 +21,7 @@ public class Data {
 		return _data;
 	}
 
-	public JSONObject GetBar(int requestedId) {
+	public JSONObject getBar(int requestedId) {
 		try {
 			JSONArray bars = _data.getJSONArray("bars");
 			for (int i = 0; i < bars.length(); i++) {

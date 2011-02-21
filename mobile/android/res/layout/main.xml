@@ -6,4 +6,5 @@
 	<Button android:id="@+id/btnBeers" android:text="Beers" android:layout_width="wrap_content" android:layout_height="wrap_content" />
 	<Button android:id="@+id/btnBars" android:text="Bars" android:layout_width="wrap_content" android:layout_height="wrap_content" />
 	<Button android:id="@+id/btnFavorites" android:text="Favorites" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+	<Button android:id="@+id/btnLocate" android:text="Find Me" android:layout_width="wrap_content" android:layout_height="wrap_content" />
 </LinearLayout>

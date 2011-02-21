@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.View;
+import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
@@ -17,6 +18,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 
 import org.json.JSONArray;
@@ -24,6 +26,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.mmclar.beerfinder.R;
+import com.mmclar.beerfinder.beeractivity.BeerList;
 
 public class BarList extends ListActivity {
 	@Override
@@ -98,6 +101,7 @@ public class BarList extends ListActivity {
 
 				dialog.dismiss();
 				Util.postJson("/addBar/", addBarObject);
+				new Data().reload();
 				setupList();
 			}
 		});

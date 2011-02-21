@@ -14,12 +14,13 @@ public final class R {
         public static final int icon=0x7f020000;
     }
     public static final class id {
-        public static final int addBar=0x7f060011;
-        public static final int addTap=0x7f060012;
+        public static final int addBar=0x7f060012;
+        public static final int addTap=0x7f060013;
         public static final int btnBars=0x7f06000f;
         public static final int btnBeers=0x7f06000e;
         public static final int btnCancel=0x7f060002;
         public static final int btnFavorites=0x7f060010;
+        public static final int btnLocate=0x7f060011;
         public static final int btnOK=0x7f060003;
         public static final int btnRemove=0x7f06000c;
         public static final int edtBarName=0x7f060001;
