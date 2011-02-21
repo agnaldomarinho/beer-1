@@ -23,14 +23,20 @@ public class BeerFinder extends ListActivity {
 
 		lv.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				Intent i;
 				switch (position) {
 				case 0:
-					Intent i = new Intent(view.getContext(), BarList.class);
+					i = new Intent(view.getContext(), BarList.class);
 					startActivityForResult(i, 0);
+					break;
+				case 3:
+					i = new Intent(view.getContext(), BarMap.class);
+					startActivityForResult(i, 0);
+					break;
 				}
 			}
 		});
 	}
 
-	static final String[] BASE_ACTIONS = new String[] { "Bars", "Beers", "Favorites" };
+	static final String[] BASE_ACTIONS = new String[] { "Bars", "Beers", "Favorites", "Find Me" };
 }
