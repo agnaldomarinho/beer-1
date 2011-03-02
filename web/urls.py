@@ -16,5 +16,6 @@ urlpatterns = patterns('',
     (r'changeBeer/', 'api.views.change_beer'),
     (r'addBar/', 'api.views.add_bar'),
     (r'addBeer/(?P<bar_id>\d+)/(?P<position>\d+)', 'api.views.add_beer'),
-    (r'removeTap/(?P<tap_id>\d+)', 'api.views.remove_tap')
+    (r'removeTap/(?P<tap_id>\d+)', 'api.views.remove_tap'),
+    (r'barTable/', 'api.views.bar_table')
 )

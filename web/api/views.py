@@ -130,3 +130,14 @@ def remove_tap(request, tap_id):
     tap = Tap.objects.get(id = tap_id)
     tap.delete()
     return HttpResponse(json.dumps({"status": "success"}))
+
+def bar_table(request):
+    bars = Bar.objects.all()
+    ret = []
+    for bar in bars:
+        ret.append([
+            bar.name,
+            bar.location.lon,
+            bar.location.lat
+        ])
+    return HttpResponse(json.dumps({"aaData": ret}))

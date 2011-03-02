@@ -2,13 +2,16 @@
 <html>
 <head>
     <title>{% block title %}{% endblock %}</title>
-    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js"></script>
+    <script type="text/javascript" src="/static/script/ol/OpenLayers.js"></script>
+    <script type="text/javascript" src="/static/script/jquery/jquery-1.5.1.min.js"></script>
+    <script type="text/javascript" src="http://maps.google.com/maps/api/js?v=3.2&sensor=false"></script>
+    <script type="text/javascript" src="/static/script/ol/OpenLayers.js"></script>
+    <link rel="stylesheet" type="text/css" href="/static/style/map.css" />
+    <link rel="stylesheet" type="text/css" href="/static/script/ol/theme/default/style.css" />
 </head>
 <body>
-    <div class="header">
-        <h1></h1>
-    </div>
+	<div class="header">
+	</div>
     {% block content %}{% endblock %}
 </body>
 </html>
