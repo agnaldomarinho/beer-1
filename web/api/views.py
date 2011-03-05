@@ -141,3 +141,11 @@ def bar_table(request):
             bar.location.lat
         ])
     return HttpResponse(json.dumps({"aaData": ret}))
+
+def move_bar(request, bar_id, lon, lat):
+    bar_id = int(bar_id)
+    bar = Bar.objects.get(id = bar_id)
+    bar.location.lon = lon
+    bar.location.lat = lat
+    bar.location.save()
+    return HttpResponse(json.dumps({"status": "success"}))
