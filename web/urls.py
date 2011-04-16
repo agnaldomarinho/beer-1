@@ -22,5 +22,6 @@ urlpatterns = patterns('',
     (r'addBeer/(?P<bar_id>\d+)/(?P<position>\d+)', 'api.views.add_beer'),
     (r'removeTap/(?P<tap_id>\d+)', 'api.views.remove_tap'),
     (r'barTable/', 'api.views.bar_table'),
-    (r'moveBar/(?P<bar_id>\d+)/%s/'%lonlatre, 'api.views.move_bar')
+    (r'moveBar/(?P<bar_id>\d+)/%s/'%lonlatre, 'api.views.move_bar'),
+    (r'osm/(?P<path>.*)', 'api.views.osm_cache')
 )

@@ -6,7 +6,7 @@ var Map = function(){
     return {
         Initialize: function(){
         	map = new OpenLayers.Map('map');
-			var base = new OpenLayers.Layer.OSM("Google Streets");
+			var base = new OpenLayers.Layer.OSM("OSM");
 			Map.Bars = new OpenLayers.Layer.Vector(
 				"Bar Markers",
 				{
@@ -50,6 +50,7 @@ var Map = function(){
 					Map.ProjectPoint(bar.location[0], bar.location[1]),
 					{ id: bar.id }
 				);
+				//feature.style.graphicTitle = 'abc';
 				Map.Bars.addFeatures(feature);
             }
         },

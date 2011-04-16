@@ -1,6 +1,9 @@
 from models import Bar
 import json
+import os
+import datetime
 
+import httplib2
 from django.http import HttpResponse
 from api.models import Beer, Brewery, Tap, Location
 from bdb import bar
@@ -149,3 +152,31 @@ def move_bar(request, bar_id, lon, lat):
     bar.location.lat = lat
     bar.location.save()
     return HttpResponse(json.dumps({"status": "success"}))
+
+def log(logme):
+    print "[%s] %s" % (datetime.datetime.now(), logme)
+
+def osm_cache(request, path):
+    log('start')
+    base_path = "/tmp/osm_cache/"
+    # try to read the file.  if it exists, load it and return it
+    try:
+        f = open(base_path + path, 'r')
+        log('reading from file')
+        return HttpResponse(content=f.read(), mimetype="image/png")
+    except:
+        log('a')
+        conn = httplib2.Http()
+        url = "http://tile.openstreetmap.org/" + path
+        log('reading from web')
+        resp, content = conn.request(url, request.method)
+        newpath = base_path + '/'.join(path.split('/')[:-1])
+        log('b')
+        if not os.path.exists(newpath):
+            os.makedirs(newpath)
+        f = open(base_path + path, 'w')
+        log('writing file')
+        f.write(content)
+        log('c')
+        return HttpResponse(content=content, mimetype="image/png")
+
