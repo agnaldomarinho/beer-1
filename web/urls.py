@@ -8,7 +8,7 @@ from api.models import Brewery
 lonlatre = '\((?P<lon>[+-]?\d+(\.\d+)),(?P<lat>[+-]?\d+(\.\d+))\)'
 
 urlpatterns = patterns('',
-    (r'', direct_to_template, {'template': 'home.html'}),
+    (r'^$', direct_to_template, {'template': 'home.html'}),
 		(r'map/', direct_to_template, {'template': 'map.html'}),
     (r'static/(?P<path>.*)$', 'django.views.static.serve', {
         'document_root': os.path.join(os.path.dirname(__file__), 'static'),
