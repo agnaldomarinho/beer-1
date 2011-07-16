@@ -1,10 +1,15 @@
 $(document).ready(function(){
-    Map.Initialize();
+	setTimeout(Map.Initialize, 100);
 });
 
 var Map = function(){
+	map = null;
+
     return {
         Initialize: function(){
+			if (map){
+				map.destroy();
+			}
         	map = new OpenLayers.Map('map');
 			var base = new OpenLayers.Layer.OSM("OSM");
 			Map.Bars = new OpenLayers.Layer.Vector(
