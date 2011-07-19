@@ -6,7 +6,6 @@ import datetime
 import httplib2
 from django.http import HttpResponse
 from api.models import Beer, Brewery, Tap, Location
-from bdb import bar
 
 def bars_near(request, lat, lon):
     all_bars = find_closest(Bar, (39.963, -75.12), -1)
@@ -116,7 +115,7 @@ def add_beer(request, bar_id, position):
     # iterate over all the taps in position order, and reassign their position
     # when we see the position we want to add, leave a space for it
     for tap in taps:
-        if (curr_position == position):
+        if curr_position == position:
             curr_position += 1
         tap.position = curr_position
         tap.save()
@@ -164,20 +163,16 @@ def osm_cache(request, path):
         f = open(base_path + path, 'rb')
         log('reading from file')
         return HttpResponse(content=f.read(), mimetype="image/png")
-    except:
-        log('a')
+    except IOError:
         conn = httplib2.Http()
         url = "http://tile.openstreetmap.org/" + path
         log('reading from web')
         resp, content = conn.request(url, request.method)
-        newpath = base_path + '/'.join(path.split('/')[:-1])
-        log('b')
-        if not os.path.exists(newpath):
-            os.makedirs(newpath)
+        new_path = base_path + '/'.join(path.split('/')[:-1])
+        if not os.path.exists(new_path):
+            os.makedirs(new_path)
         f = open(base_path + path, 'wb')
-        log('writing file')
         f.write(content)
-        log('c')
         f.close()
         return HttpResponse(content=content, mimetype="image/png")
 
