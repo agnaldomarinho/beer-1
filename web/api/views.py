@@ -161,7 +161,7 @@ def osm_cache(request, path):
     base_path = "/tmp/osm_cache/"
     # try to read the file.  if it exists, load it and return it
     try:
-        f = open(base_path + path, 'r')
+        f = open(base_path + path, 'rb')
         log('reading from file')
         return HttpResponse(content=f.read(), mimetype="image/png")
     except:
@@ -174,9 +174,10 @@ def osm_cache(request, path):
         log('b')
         if not os.path.exists(newpath):
             os.makedirs(newpath)
-        f = open(base_path + path, 'w')
+        f = open(base_path + path, 'wb')
         log('writing file')
         f.write(content)
         log('c')
+        f.close()
         return HttpResponse(content=content, mimetype="image/png")
 
