@@ -3,14 +3,14 @@ $(document).ready(function(){
 });
 
 var Map = function(){
-	map = null;
+	var map = null;
 
     return {
         Initialize: function(){
-			if (map){
+			if (Map.map){
 				map.destroy();
 			}
-        	map = new OpenLayers.Map('map');
+        	Map.map = new OpenLayers.Map('map');
 			var base = new OpenLayers.Layer.OSM("OSM");
 			Map.Bars = new OpenLayers.Layer.Vector(
 				"Bar Markers",
@@ -25,15 +25,24 @@ var Map = function(){
 					rendererOptions: { yOrdering: true }
 				}
 			);
-			map.addLayers([base, Map.Bars]);
-			Map.Projections = [new OpenLayers.Projection("EPSG:4326"), map.getProjectionObject()];
-			map.setCenter(Map.ProjectLonLat(-75.16, 39.963), 16);
+			Map.map.addLayers([base, Map.Bars])
+
+            var select = new OpenLayers.Control.SelectFeature(Map.Bars);
+            Map.map.addControl(select);
+            select.activate();
+            Map.Bars.events.on({
+                featureselected: function(event){
+                    alert("feature selected");
+                }
+            });
+			Map.Projections = [new OpenLayers.Projection("EPSG:4326"), Map.map.getProjectionObject()];
+			Map.map.setCenter(Map.ProjectLonLat(-75.16, 39.963), 16);
 			
-			var dragFeature = new OpenLayers.Control.DragFeature(Map.Bars);
+			/*var dragFeature = new OpenLayers.Control.DragFeature(bars);
 			map.addControl(dragFeature);
 			dragFeature.activate();
-
-			dragFeature.onComplete = Map.BarMoved; 
+            dragFeature.onComplete = Map.BarMoved;
+             */
             
 			$.ajax({
                 url: "/bars/(1.1,1.1)/",
@@ -57,6 +66,7 @@ var Map = function(){
 				);
 				//feature.style.graphicTitle = 'abc';
 				Map.Bars.addFeatures(feature);
+                //feature.marker.bind('click', function(){alert('clicked');});
             }
         },
 
