@@ -1,3 +1,4 @@
+from django.shortcuts import render_to_response
 from models import Bar
 import json
 import os
@@ -176,3 +177,8 @@ def osm_cache(request, path):
         f.close()
         return HttpResponse(content=content, mimetype="image/png")
 
+
+def bar_detail(request, bar_id):
+    bar_id = int(bar_id)
+    bar = Bar.objects.get(id = bar_id)
+    return render_to_response('bar_detail.html', { 'bar': bar })

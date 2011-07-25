@@ -1,0 +1,5 @@
+<h2 class="bar-name">{{ bar.name }}</h2>
+Beers:
+{% for tap in bar.taps.all %}
+    <div class="beer-name">{{ tap.name }}</div>
+{% endfor %}

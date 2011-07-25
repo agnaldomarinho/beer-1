@@ -32,18 +32,19 @@ var Map = function(){
             select.activate();
             Map.Bars.events.on({
                 featureselected: function(event){
-                    alert("feature selected");
+                    var barId = event.feature.data.id;
+                    $(".bar-detail").load("/barDetail/" + barId);
                 }
             });
 			Map.Projections = [new OpenLayers.Projection("EPSG:4326"), Map.map.getProjectionObject()];
 			Map.map.setCenter(Map.ProjectLonLat(-75.16, 39.963), 16);
-			
+
 			/*var dragFeature = new OpenLayers.Control.DragFeature(bars);
 			map.addControl(dragFeature);
 			dragFeature.activate();
             dragFeature.onComplete = Map.BarMoved;
              */
-            
+
 			$.ajax({
                 url: "/bars/(1.1,1.1)/",
                 success: Map.DisplayMarkers,

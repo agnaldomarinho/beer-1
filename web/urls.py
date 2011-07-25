@@ -24,5 +24,6 @@ urlpatterns = patterns('',
     (r'removeTap/(?P<tap_id>\d+)', 'api.views.remove_tap'),
     (r'barTable/', 'api.views.bar_table'),
     (r'moveBar/(?P<bar_id>\d+)/%s/'%lonlatre, 'api.views.move_bar'),
-    (r'osm/(?P<path>.*)', 'api.views.osm_cache')
+    (r'osm/(?P<path>.*)', 'api.views.osm_cache'),
+    (r'barDetail/(?P<bar_id>\d+)', 'api.views.bar_detail'),
 )
