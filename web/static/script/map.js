@@ -25,25 +25,33 @@ var Map = function(){
 					rendererOptions: { yOrdering: true }
 				}
 			);
-			Map.map.addLayers([base, Map.Bars])
+			Map.map.addLayers([base, Map.Bars]);
 
-            var select = new OpenLayers.Control.SelectFeature(Map.Bars);
-            Map.map.addControl(select);
-            select.activate();
+            Map.selectControl = new OpenLayers.Control.SelectFeature(Map.Bars);
+            Map.map.addControl(Map.selectControl);
+            Map.selectControl.activate();
+            var updateBarInfo = function(event){
+                var barId = event.feature ? event.feature.data.id : event.attributes.id;
+                $(".bar-detail").load("/barDetail/" + barId);
+            };
             Map.Bars.events.on({
-                featureselected: function(event){
-                    var barId = event.feature.data.id;
-                    $(".bar-detail").load("/barDetail/" + barId);
-                }
+                featureselected: updateBarInfo
             });
+
+			Map.dragControl = new OpenLayers.Control.DragFeature(Map.Bars);
+			Map.map.addControl(Map.dragControl);
+			Map.dragControl.activate();
+            Map.dragControl.onComplete = Map.BarMoved;
+            Map.dragControl.onStart = updateBarInfo;
+
+            var panel = new OpenLayers.Control.Panel({
+                displayClass: 'olControlEditingToolbar'
+            });
+            panel.addControls([Map.dragControl, Map.selectControl]);
+            Map.map.addControl(panel);
+
 			Map.Projections = [new OpenLayers.Projection("EPSG:4326"), Map.map.getProjectionObject()];
 			Map.map.setCenter(Map.ProjectLonLat(-75.16, 39.963), 16);
-
-			/*var dragFeature = new OpenLayers.Control.DragFeature(bars);
-			map.addControl(dragFeature);
-			dragFeature.activate();
-            dragFeature.onComplete = Map.BarMoved;
-             */
 
 			$.ajax({
                 url: "/bars/(1.1,1.1)/",
@@ -65,9 +73,7 @@ var Map = function(){
 					Map.ProjectPoint(bar.location[0], bar.location[1]),
 					{ id: bar.id }
 				);
-				//feature.style.graphicTitle = 'abc';
 				Map.Bars.addFeatures(feature);
-                //feature.marker.bind('click', function(){alert('clicked');});
             }
         },
 
