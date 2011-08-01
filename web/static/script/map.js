@@ -49,6 +49,7 @@ var Map = function(){
             });
             panel.addControls([Map.dragControl, Map.selectControl]);
             Map.map.addControl(panel);
+            panel.activateControl(Map.selectControl);
 
 			Map.Projections = [new OpenLayers.Projection("EPSG:4326"), Map.map.getProjectionObject()];
 			Map.map.setCenter(Map.ProjectLonLat(-75.16, 39.963), 16);
