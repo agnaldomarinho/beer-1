@@ -10,6 +10,8 @@ lonlatre = '\((?P<lon>[+-]?\d+(\.\d+)),(?P<lat>[+-]?\d+(\.\d+))\)'
 urlpatterns = patterns('',
     (r'^$', direct_to_template, {'template': 'home.html'}),
     (r'map/', direct_to_template, {'template': 'map.html'}),
+    (r'barList/', direct_to_template, {'template': 'bars.html'}),
+    (r'breweries/', direct_to_template, {'template': 'breweries.html'}),
     (r'static/(?P<path>.*)$', 'django.views.static.serve', {
         'document_root': os.path.join(os.path.dirname(__file__), 'static'),
         'show_indexes': True

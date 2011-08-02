@@ -1,0 +1,4 @@
+body { font:.75em Verdana,Arial,Geneva,Helvetica,sans-serif; }
+div.header div.logo { width:100%; height:24px; }
+div.header div.menu li { float:left; padding:0 0 0 10px; list-style:none; }
+div.main { clear:both; }
