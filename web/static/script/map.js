@@ -2,7 +2,7 @@ $(document).ready(function(){
 	setTimeout(Map.Initialize, 100);
 });
 
-var Map = function(){
+var Map = (function(){
 	var map = null;
 
     return {
@@ -93,13 +93,13 @@ var Map = function(){
 			);
 		}
     };
-}();
+})();
 
 String.prototype.format = function() {
 	var formatted = this;
-	for(arg in arguments) {
+	for(var arg in arguments) {
 		formatted = formatted.replace("{" + arg + "}", arguments[arg]);
 	}
 	return formatted;
 };
-						
+
