@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h2>Bars:</h2>
+    <ul class="bars">
+        {% for bar in bars %}
+            <li>{{ bar.name }}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
